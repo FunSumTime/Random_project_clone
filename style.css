@@ -1,0 +1,281 @@
+/* ---- base / reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+    Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* ---- theme ---- */
+:root {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --surface-2: #f0f2f7;
+  --text: #0d1220;
+  --muted: #5c6070;
+
+  --accent: #2563eb; /* blue */
+  --accent-2: #16a34a; /* green for success */
+  --danger: #dc2626; /* red for critical */
+  --ring: rgba(37, 99, 235, 0.35);
+  --shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0f15;
+    --surface: #10151d;
+    --surface-2: #141a23;
+    --text: #e6e8ee;
+    --muted: #9aa2b2;
+    --ring: rgba(99, 102, 241, 0.35);
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* ---- page layout ---- */
+main {
+  max-width: 1100px;
+  padding: 24px;
+  margin: 0 auto;
+}
+
+#case-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 24px;
+}
+
+/* Stack on small screens */
+@media (max-width: 800px) {
+  #case-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- headings ---- */
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+#title-case {
+  font-size: 1.5rem;
+}
+
+/* ---- cards ---- */
+#Case-Card,
+#actions {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* keep actions visible while scrolling on desktop */
+#actions {
+  position: sticky;
+  top: 16px;
+  height: fit-content;
+}
+
+/* ---- meta / feedback ---- */
+#feedback {
+  margin: 8px 0 16px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border-radius: 10px;
+  color: var(--muted);
+}
+
+/* helper states you can toggle from JS later */
+#feedback.success {
+  color: var(--accent-2);
+  background: color-mix(in oklab, var(--accent-2) 12%, transparent);
+}
+#feedback.error {
+  color: var(--danger);
+  background: color-mix(in oklab, var(--danger) 12%, transparent);
+}
+
+/* ---- demographics, complaint, sections ---- */
+#demographics {
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+#symptoms h3,
+#actions h3 {
+  font-size: 1.1rem;
+  margin-top: 8px;
+}
+
+/* ---- symptoms list ---- */
+#symptoms-list {
+  padding-left: 18px;
+  margin: 8px 0 16px;
+}
+#symptoms-list li {
+  margin: 4px 0;
+}
+
+/* ---- vitals ---- */
+/* Works whether you render <ul><li> or <p> rows */
+#vitals {
+  margin-top: 10px;
+  padding: 12px;
+  background: var(--surface-2);
+  border-radius: 12px;
+}
+#vitals ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#vitals ul li {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  padding: 6px 4px;
+}
+#vitals p {
+  margin: 6px 0;
+}
+
+/* optional emphasis classes if you add them via JS later */
+#vitals .critical {
+  color: var(--danger);
+  font-weight: 700;
+}
+#vitals .abnormal {
+  color: #b45309;
+  font-weight: 600;
+} /* amber */
+
+/* ---- buttons ---- */
+#triage-buttons {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+button {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.04s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease, background 0.15s ease;
+}
+button:hover {
+  border-color: var(--accent);
+}
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--ring);
+}
+button:active {
+  transform: translateY(1px);
+}
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* primary/secondary styles for action buttons */
+#next-case {
+  background: var(--accent);
+  color: white;
+  border-color: transparent;
+}
+#next-case:hover {
+  filter: brightness(1.05);
+}
+#show-rules {
+  background: var(--surface-2);
+}
+
+/* ---- dialog ---- */
+dialog {
+  border: none;
+  border-radius: 16px;
+  padding: 0;
+  width: min(720px, 90vw);
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.35);
+}
+#rules-title {
+  padding: 16px 20px;
+  margin: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+#rules-content {
+  padding: 16px 20px;
+}
+#rules-modal form {
+  padding: 12px 20px 16px;
+  display: flex;
+  justify-content: end;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ---- footer ---- */
+.site-footer {
+  max-width: 1100px;
+  margin: 16px auto 40px;
+  padding: 0 24px;
+  color: var(--muted);
+}
+#scoreboard {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+#scoreboard h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+#scoreboard h4 {
+  margin: 12px 0 6px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+#scoreboard .score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+}
+#history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.925rem;
+}
+#history-list li {
+  padding: 4px 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+}

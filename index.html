@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emergency Medical Education</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <section id="case-panel">
+        <!-- case -->
+        <h2 id="title-case">Case</h2>
+        <div id="feedback"></div>
+        <article id="Case-Card">
+          <div id="demographics">
+            <!-- ex: shortness of breath after practice -->
+          </div>
+          <div id="symptoms">
+            <h3>Symptoms:</h3>
+            <ul id="symptoms-list"></ul>
+          </div>
+          <div id="vitals">
+            <!-- fill with the fetch and this will be the random data -->
+          </div>
+        </article>
+        <!-- actions -->
+        <div id="actions">
+          <h3>Traige Level</h3>
+          <div id="triage-buttons">
+            <button data-level="1">ESI 1</button>
+            <button data-level="2">ESI 2</button>
+            <button data-level="3">ESI 3</button>
+            <button data-level="4">ESI 4</button>
+            <button data-level="5">ESI 5</button>
+          </div>
+          <div class="controlers">
+            <button id="next-case" disabled>Next Case</button>
+            <button id="show-rules">Show Rules</button>
+          </div>
+          <div id="scoreboard">
+            <h3>Scoreboard</h3>
+            <div class="score-row">
+              <span>Total</span><span id="score">0 / 0</span>
+            </div>
+            <div class="score-row">
+              <span>Streak</span><span id="streak">0</span>
+            </div>
+
+            <h4>Recent</h4>
+            <ul id="history-list"></ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Rules Modal (hidden by default) -->
+    <dialog id="rules-modal">
+      <h3 id="rules-title">Triage Rules</h3>
+      <div id="rules-content"><!-- filled from rules.json --></div>
+      <form method="dialog">
+        <button id="close-rules">Close</button>
+      </form>
+    </dialog>
+    <footer class="site-footer">
+      <small>For education purpose only</small>
+    </footer>
+    <script src="app.js" defer></script>
+  </body>
+</html>
